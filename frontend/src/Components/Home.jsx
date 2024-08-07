@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './Home.css';
-// import { icons } from 'boxicons';
+import 'boxicons';
 import ScrollReveal from 'scrollreveal';
 
 const App = () => {
@@ -65,17 +65,17 @@ const App = () => {
           <h5>A student <span>From IGDTUW</span></h5>
           <p>I'm a web developer, and I'm very passionate <br /> and dedicated to my work.</p>
           <div className="social">
+            <a href="https://www.linkedin.com/in/simmi-thapad-5692511a9/" target="_blank" rel="noopener noreferrer">
+              <box-icon name='linkedin' type='logo' ></box-icon>
+            </a>
+            <a href="https://github.com/simmithapad" target="_blank" rel="noopener noreferrer">
+              <box-icon name='github' type='logo' ></box-icon>
+            </a>
             <a href="https://www.instagram.com/simmithapad/" target="_blank" rel="noopener noreferrer">
               <box-icon name='instagram' type='logo' ></box-icon>
             </a>
             <a href="https://twitter.com/simmi_thapad" target="_blank" rel="noopener noreferrer">
-              <bx_bxl_twitter />
-            </a>
-            <a href="https://www.linkedin.com/in/simmi-thapad-5692511a9/" target="_blank" rel="noopener noreferrer">
-              <bx_bxl_linkedin />
-            </a>
-            <a href="https://github.com/simmithapad" target="_blank" rel="noopener noreferrer">
-              <bx_bxl_github />
+              <box-icon name='twitter' type='logo' ></box-icon>
             </a>
           </div>
           <a href="#about" className="btn">About Me</a>
@@ -127,10 +127,10 @@ const App = () => {
 
         <div className="service-content">
           {[
-            { id: 'portfolio', title: 'Portfolio Website', desc: 'I made this portfolio website for my friend using HTML, CSS, and Bootstrap', img: '/Img/portfolio.png' },
-            { id: 'bot', title: 'Chatbot', desc: 'I made a chatbot on telegram with my team members', img: '/Img/bot.png' },
-            { id: 'T', title: 'My Portfolio', desc: 'This is my portfolio website', img: '/Img/T.png' },
-            { id: 'health', title: 'Health Website', desc: 'I and my teammates made this website on the platform "Velo by Wix" for a hackathon.', img: '/Img/health.png', link: 'https://simmi031btcse21.wixsite.com/my-site' },
+            { id: 'portfolio', title: 'Portfolio Website', desc: 'I made this portfolio website for my friend using HTML, CSS, and Bootstrap', img: 'portfolio.png' },
+            { id: 'bot', title: 'Chatbot', desc: 'I made a chatbot on telegram with my team members', img: 'bot.png' },
+            { id: 'T', title: 'My Portfolio', desc: 'This is my portfolio website', img: 'T.png' },
+            { id: 'health', title: 'Health Website', desc: 'I and my teammates made this website on the platform "Velo by Wix" for a hackathon.', img: 'health.png', link: 'https://simmi031btcse21.wixsite.com/my-site' },
           ].map(project => (
             <div className="row" key={project.id}>
               <a href={project.link || '#'}>
@@ -169,7 +169,7 @@ const App = () => {
 
       <script src="https://unpkg.com/scrollreveal"></script>
       <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-      <script type="text/javascript" src="js/script.js"></script>
+      {/* <script type="text/javascript" src="js/script.js"></script> */}
     </div>
   );
 }
