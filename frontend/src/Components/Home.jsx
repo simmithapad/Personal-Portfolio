@@ -2,8 +2,37 @@ import React, { useEffect } from 'react';
 import './Home.css';
 import 'boxicons';
 import ScrollReveal from 'scrollreveal';
+import { Formik, Form, Field, ErrorMessage} from 'formik';
+import * as Yup from 'yup';
+import axios from 'axios';
 
 const App = () => {
+  const initialValues = {
+    name: '',
+    email: '',
+    message: ''
+  };
+
+  const validationSchema = Yup.object({
+    name: Yup.string().required('Name is required'),
+    email: Yup.string().email('Invalid email format').required('Email is required'),
+    message: Yup.string().required('Message is required')
+  });
+
+  const onSubmit = async (values, { setSubmitting, resetForm }) => {
+    try {
+      const response = await axios.post('http://localhost:5000/submit', values);
+      alert("submitted");
+      console.log(response.data);
+      resetForm();
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('An error occurred while submitting the form.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
     useEffect(() => {
         const header = document.querySelector("header");
     
@@ -74,7 +103,7 @@ const App = () => {
             <a href="https://www.instagram.com/simmithapad/" target="_blank" rel="noopener noreferrer">
               <box-icon name='instagram' type='logo' ></box-icon>
             </a>
-            <a href="https://twitter.com/simmi_thapad" target="_blank" rel="noopener noreferrer">
+            <a href="https://x.com/simmithapad" target="_blank" rel="noopener noreferrer">
               <box-icon name='twitter' type='logo' ></box-icon>
             </a>
           </div>
@@ -153,12 +182,55 @@ const App = () => {
           </div>
 
           <div className="action">
-            <form>
-              <input type="text" className="form-control" placeholder="Name" aria-label="Name" required />
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={onSubmit}
+            >
+              {({ isSubmitting }) => (
+                <Form>
+                  <div>
+                    <Field 
+                      type="text"
+                      name="name"
+                      className="form-control"
+                      placeholder="Name"
+                      aria-label="Name"
+                    />
+                    <ErrorMessage name="name" component="div" className="error" />
+                  </div>
+
+                  <div>
+                    <Field 
+                      type="email"
+                      name="email"
+                      placeholder="Enter Your email"
+                    />
+                    <ErrorMessage name="email" component="div" className="error" />
+                  </div>
+
+                  <div>
+                    <Field 
+                      as="textarea"
+                      name="message"
+                      placeholder="Message"
+                      rows = {3}
+                    />
+                    <ErrorMessage name="message" component="div" className="error" />
+                  </div>
+
+                  <div>
+                    <button type="submit" disabled={isSubmitting} className="btn btn-primary">
+                      {isSubmitting ? 'Submitting...' : 'Submit'}
+                    </button>
+                  </div>
+                </Form>
+              )}
+              {/* <input type="text" className="form-control" placeholder="Name" aria-label="Name" required />
               <input type="email" name="email" placeholder="Enter Your email" required />
-              <textarea name="message" placeholder="Message" required></textarea>
-              <input type="submit" name="submit" value="Submit" />
-            </form>
+              <textarea name="message" placeholder="Message" rows={4} cols={100} required></textarea>
+              <input type="submit" name="submit" value="Submit" /> */}
+            </Formik>
           </div>
         </div>
       </section>
